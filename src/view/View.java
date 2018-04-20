@@ -374,8 +374,8 @@ public class View implements Observer {
                 if (ipInputField.getInputVerifier().verify(ipInputField)){
                     controller.settings.setRemoteIPAddress(ipInputField.getText());
                     System.out.println("Server ip to connect: "+ipInputField.getText());
-                    Server serv = new Server();
-                    serv.communicate();
+                    Thread thread = new Thread(new Server());
+                    thread.start();
                 }
             }
         } );

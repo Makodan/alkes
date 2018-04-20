@@ -30,7 +30,7 @@ public class Client {
 
             } catch (SocketException se) {
                 se.printStackTrace();
-// System.exit(0);
+                System.exit(0);
             } catch (IOException e) {
                 e.printStackTrace();
             }

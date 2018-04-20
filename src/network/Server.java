@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
-public class Server {
+public class Server implements Runnable {
     private ServerSocket serverSocket = null;
     private Socket socket = null;
     private ObjectInputStream inStream = null;
@@ -14,18 +14,25 @@ public class Server {
 
     }
 
-    public void communicate() {
+
+    @Override
+    public void run() {
         try {
             serverSocket = new ServerSocket(7777);
             socket = serverSocket.accept();
             System.out.println("Connected");
             inStream = new ObjectInputStream(socket.getInputStream());
+            testobject to;
+            while (true) {
 
-            testobject to = (testobject) inStream.readObject();
-            System.out.println("Object received = " + to);
-            System.out.println(to.id);
-            System.out.println(to.value);
-            socket.close();
+                to = (testobject) inStream.readObject();
+                System.out.println("Object received = " + to);
+                System.out.println(to.id);
+                System.out.println(to.value);
+            }
+
+
+
 
         } catch (SocketException se) {
             System.exit(0);
@@ -34,6 +41,6 @@ public class Server {
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         }
-    }
 
+    }
 }
